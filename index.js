@@ -1,26 +1,21 @@
-import 'dotenv/config'
+import 'dotenv/config';
 import express from 'express';
 import bodyParser from 'body-parser';
 import usersRoutes from './routes/users.js';
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; // Fallback to 3000 if PORT is not defined
 
 app.use(bodyParser.json());
 
-app.use('/users', usersRoutes); //user routes are starting with users as a default set kr diya hai
+app.use('/users', usersRoutes);
 
-//pehle path ayega phir call back function
-// '/' => home route
-app.get('/', (req, res)=>
-{
+app.get('/', (req, res) => {
     res.send("Hello from homepage");
 });
 
-app.get('/login', (req,res) =>
-{
-    res.send('<h1>Please login</h1>')
-})
+app.get('/login', (req, res) => {
+    res.send('<h1>Please login</h1>');
+});
 
-
-app.listen(process.env.PORT, () => console.log(`Server running on port: http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port: http://localhost:${PORT}`));
